@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'bundler'
+Bundler.setup
+
+require 'gosu'
+
+class GameWindow < Gosu::Window
+  def initialize
+    super 640, 480, false
+    self.caption = 'Gosu Tutorial Game'
+
+    @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
+  end
+
+  def update; end
+
+  def draw
+    @font.draw(
+      "Mining Depot",
+      10,        #x offset
+      10,        #y offset
+      3,         #z-index
+      1.0,       #x scaling factor
+      1.0,       #y scaling factor
+      0xFFFF0000 #color
+    )
+  end
+end
+
+window = GameWindow.new
+window.show
