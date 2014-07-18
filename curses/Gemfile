@@ -2,6 +2,8 @@
 source "https://rubygems.org"
 
 gem 'mining_depot', path: '../../mining_depot'
-gem 'pry'
-
 gem 'curses' if RUBY_VERSION >= '2.1'
+
+# for development, etc.
+gem 'rubocop'
+gem 'pry'

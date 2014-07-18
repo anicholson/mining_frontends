@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
+# rubocop:disable AndOr
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
@@ -6,48 +8,37 @@ require 'bundler/setup'
 require 'curses'
 require 'mining_depot'
 require 'pry'
+require 'helpers'
 
 include Curses
 
-world = CreateDemoWorld.run(world: { height: 40, width: 30 } ).result
-
-StartWorld.run(world: world)
-width  = world.width
-height = world.height
+world, height, width = init_world!
 
 start_color
 init_screen
-
-trap('INT') { close_screen; exit 0 }
 
 EMPTY = COLOR_WHITE
 init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK)
 init_pair(EMPTY, EMPTY, COLOR_BLACK)
 
-win = Window.new(height+2, width+2, (lines - height) / 2, (cols - width) / 2)
-win.box(?|, ?-)
+win = world_window(height, width)
+
 begin
   noecho
   crmode
   loop do
     (0...width).each do |x|
       (0...height).each do |y|
-        if world[x,y].building
-          l = 'M'
-	  c = true
-	else
-	  c = false
-          l = '.'
-	end
-        win.setpos(y+1,x+1)
-	if c
-          win.attron(color_pair(COLOR_BLUE)|A_NORMAL) { win.addstr(l) }
-	else
-          win.attron(color_pair(EMPTY)|A_NORMAL) { win.addstr(l) }
-	end
+        char, c = map_char(world[x, y].building)
+        win.setpos(y + 1, x + 1)
+        if c
+          win.attron(color_pair(COLOR_BLUE) | A_NORMAL) { win.addstr(char) }
+        else
+          win.attron(color_pair(EMPTY)      | A_NORMAL) { win.addstr(char) }
+        end
       end
     end
-    win.bkgdset(color_pair(COLOR_BLUE)|A_NORMAL)
+
     win.refresh
     sleep 1
   end
