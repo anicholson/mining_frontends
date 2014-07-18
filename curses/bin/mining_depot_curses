@@ -9,19 +9,16 @@ require 'pry'
 
 include Curses
 
-def print_world(world)
-  puts 'world'
-end
-
 world = CreateDemoWorld.run(world: { height: 40, width: 30 } ).result
 
 StartWorld.run(world: world)
 width  = world.width
 height = world.height
 
-
 start_color
 init_screen
+
+trap('INT') { close_screen; exit 0 }
 
 EMPTY = COLOR_WHITE
 init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK)
