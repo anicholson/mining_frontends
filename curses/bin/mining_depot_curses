@@ -2,6 +2,58 @@
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
+require 'bundler/setup'
+require 'curses'
 require 'mining_depot'
+require 'pry'
+
+include Curses
+
+def print_world(world)
+  puts 'world'
+end
+
+world = CreateDemoWorld.run(world: { height: 40, width: 30 } ).result
+
+StartWorld.run(world: world)
+width  = world.width
+height = world.height
 
 
+start_color
+init_screen
+
+EMPTY = COLOR_WHITE
+init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK)
+init_pair(EMPTY, EMPTY, COLOR_BLACK)
+
+win = Window.new(height+2, width+2, (lines - height) / 2, (cols - width) / 2)
+win.box(?|, ?-)
+begin
+  noecho
+  crmode
+  loop do
+    (0...width).each do |x|
+      (0...height).each do |y|
+        if world[x,y].building
+          l = 'M'
+	  c = true
+	else
+	  c = false
+          l = '.'
+	end
+        win.setpos(y+1,x+1)
+	if c
+          win.attron(color_pair(COLOR_BLUE)|A_NORMAL) { win.addstr(l) }
+	else
+          win.attron(color_pair(EMPTY)|A_NORMAL) { win.addstr(l) }
+	end
+      end
+    end
+    win.bkgdset(color_pair(COLOR_BLUE)|A_NORMAL)
+    win.refresh
+    sleep 1
+  end
+ensure
+  close_screen
+end
