@@ -11,11 +11,13 @@ class GameWindow < Gosu::Window
     self.caption = 'Gosu Tutorial Game'
 
     @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
+    @background_image = Gosu::Image.new(self, 'media/gravel_tile.jpg', true)
   end
 
   def update; end
 
   def draw
+    @background_image.draw(0,0,0)
     @font.draw(
       "Mining Depot",
       10,        #x offset
