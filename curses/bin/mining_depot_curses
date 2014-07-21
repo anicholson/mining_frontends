@@ -29,13 +29,11 @@ begin
   loop do
     (0...width).each do |x|
       (0...height).each do |y|
-        char, c = map_char(world[x, y].building)
+        char, c = map_char(world[x, y])
+        color   = c ? color_pair(COLOR_BLUE) : color_pair(EMPTY)
+
         win.setpos(y + 1, x + 1)
-        if c
-          win.attron(color_pair(COLOR_BLUE) | A_NORMAL) { win.addstr(char) }
-        else
-          win.attron(color_pair(EMPTY)      | A_NORMAL) { win.addstr(char) }
-        end
+        win.attron(color | A_NORMAL) { win.addstr(char) }
       end
     end
 

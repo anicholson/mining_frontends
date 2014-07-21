@@ -11,16 +11,22 @@ def world_window(h, w)
   end
 end
 
-def map_char(building_or_nil)
-  if building_or_nil.is_a? NilClass
+def thing_at(location)
+  location.building
+end
+
+def map_char(location)
+  object_or_nil = thing_at location
+  if object_or_nil.is_a? NilClass
     ['.', false]
-  elsif building_or_nil.is_a? Mine
+  elsif object_or_nil.is_a? Mine
     ['M', true]
+  elsif object_or_nil.is_a? Truck
+    ['T', true]
   else
     ['?', true]
   end
 end
-
 
 trap('INT') do
   close_screen
