@@ -16,15 +16,28 @@ def thing_at(location)
 end
 
 def map_char(location)
-  object_or_nil = thing_at location
-  if object_or_nil.is_a? NilClass
-    ['.', false]
-  elsif object_or_nil.is_a? Mine
+  if location.mine
     ['M', true]
-  elsif object_or_nil.is_a? Truck
+  elsif location.truck
     ['T', true]
+  elsif location.depot
+    ['D', true]
   else
-    ['?', true]
+    ['.', false]
+  end
+end
+
+def draw_screen(win, result)
+  width, height = result.dimensions
+
+  (0...width).each do |x|
+    (0...height).each do |y|
+      char, c = map_char(result.map[y, x])
+      color   = c ? color_pair(COLOR_BLUE) : color_pair(EMPTY)
+
+      win.setpos(y + 1, x + 1)
+      win.attron(color | A_NORMAL) { win.addstr(char) }
+    end
   end
 end
 

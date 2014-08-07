@@ -12,7 +12,7 @@ require 'helpers'
 
 include Curses
 
-world, height, width = init_world!
+_, height, width = init_world!
 
 start_color
 init_screen
@@ -27,15 +27,9 @@ begin
   noecho
   crmode
   loop do
-    (0...width).each do |x|
-      (0...height).each do |y|
-        char, c = map_char(world[x, y])
-        color   = c ? color_pair(COLOR_BLUE) : color_pair(EMPTY)
+    update = GetWorldView.run
 
-        win.setpos(y + 1, x + 1)
-        win.attron(color | A_NORMAL) { win.addstr(char) }
-      end
-    end
+    draw_screen(win, update.result) if update.success?
 
     win.refresh
     sleep 1
