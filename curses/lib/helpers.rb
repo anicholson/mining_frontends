@@ -17,13 +17,13 @@ end
 
 def map_char(location)
   if location.mine
-    ['M', true]
+    ['M', color_pair(COLOR_BLUE)]
   elsif location.truck
-    ['T', true]
+    ['T', color_pair(COLOR_GREEN)]
   elsif location.depot
-    ['D', true]
+    ['D', color_pair(COLOR_BLUE)]
   else
-    ['.', false]
+    ['.', color_pair(EMPTY)]
   end
 end
 
@@ -32,8 +32,7 @@ def draw_screen(win, result)
 
   (0...width).each do |x|
     (0...height).each do |y|
-      char, c = map_char(result.map[y, x])
-      color   = c ? color_pair(COLOR_BLUE) : color_pair(EMPTY)
+      char, color = map_char(result.map[y, x])
 
       win.setpos(y + 1, x + 1)
       win.attron(color | A_NORMAL) { win.addstr(char) }
