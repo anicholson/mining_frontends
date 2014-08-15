@@ -1,0 +1,12 @@
+AllCops:
+  Exclude:
+  - bin/**
+  - spec/**
+  - db/**
+  - config/**
+  - script/**
+  - lib/file_size_validator.rb
+  - Rakefile
+
+Documentation:
+  Enabled: false
