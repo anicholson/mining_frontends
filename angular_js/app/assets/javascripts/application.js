@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap/dist/js/bootstrap.min
 //= require angular/angular.min
+//= require frontend/mine_app
 //= require_tree .
