@@ -1,11 +1,21 @@
+script type='text/ng-template' id='mine_stats.html'
+  dl
+    dt Mines
+    dd {{ stats.mines }}
+
+    dt Depots
+    dd {{ stats.depots }}
+
+    dt Trucks
+    dd {{ stats.trucks }}
+
 h1 Let's mine!
 
 .row
   .col-xs-6
     canvas width='100%'
 
-.row
+.row ng-controller='statsCtrl as stats'
   .col-xs-6
     h3 Stats
-
-    
+    stats
