@@ -1,9 +1,28 @@
-dl
-  dt Mines
-  dd {{ stats.counts.mines }}
+tabset
+  tab heading='Counts'
+    dl
+      dt Mines
+      dd {{ stats.counts.mines }}
 
-  dt Depots
-  dd {{ stats.counts.depots }}
+      dt Depots
+      dd {{ stats.counts.depots }}
 
-  dt Trucks
-  dd {{ stats.counts.trucks }}
+      dt Trucks
+      dd {{ stats.counts.trucks }}
+
+  tab heading='Mines'
+    #mines ng-repeat='mine in stats.mines'
+      h2 Mine
+      .row
+        .col-xs-6
+          p Status
+        .col-xs-6
+          p ng-bind='mine.status'
+      .row
+        .col-xs-6
+          p Coords
+        .col-xs-6
+          p ng-bind='mine.coordinates'
+
+  tab heading='Trucks'
+  tab heading='Depots'

@@ -12,6 +12,7 @@
  *
  *= require bootstrap/dist/css/bootstrap.min
  *= require bootstrap/dist/css/bootstrap-theme.min
+ *= require angular-ui/build/angular-ui.min
  *= require_tree .
  *= require_self
  */

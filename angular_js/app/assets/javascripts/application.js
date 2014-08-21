@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap/dist/js/bootstrap.min
 //= require angular/angular.min
+//= require angular-ui/build/angular-ui.min
+//= require angular-ui/build/angular-ui-ieshiv.min
+//= require angular-ui-bootstrap/dist/ui-bootstrap-0.11.0.min
 //= require frontend/mine_app
 //= require_tree .

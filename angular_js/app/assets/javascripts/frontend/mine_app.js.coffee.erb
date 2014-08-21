@@ -1,0 +1,24 @@
+# depend_on_asset 'mine_stats.html'
+
+do ->
+  mine = angular.module('mine', ['ui.bootstrap'])
+
+  mine.directive 'stats', ->
+    restrict:    'E'
+    templateUrl: '<%= asset_path("mine_stats.html") %>'
+
+
+  mine.controller 'statsCtrl', class
+    constructor: () ->
+      @counts =
+        mines: 10
+        depots: 10
+        trucks: 10
+      @mines =
+      [
+        coordinates: [1,2]
+        status: 'started'
+      ,
+        coordinates: [5,5]
+        status: 'started'
+      ]
